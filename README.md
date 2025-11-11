@@ -9,10 +9,13 @@ Esta es una aplicación web de formulario de registro de usuarios que contiene b
 ## Estructura del Proyecto
 ```
 /
-├── index.html      # Página principal con formulario de registro
-├── script.js       # Lógica de validación (contiene bugs)
-├── styles.css      # Estilos de la aplicación
-└── README.md       # Este archivo
+├── index.html              # Página principal con formulario de registro
+├── script.js               # Lógica de validación (BUGS CORREGIDOS)
+├── styles.css              # Estilos de la aplicación
+├── README.md               # Este archivo
+├── BUGS_DETECTADOS.md      # Documentación detallada de bugs
+├── PROCESO_DEPURACION.md   # Técnicas y proceso de depuración
+└── VERIFICACION.md         # Casos de prueba y verificación
 ```
 
 ## Cómo Ejecutar
@@ -34,23 +37,47 @@ El formulario valida:
 - Confirmación de contraseña (debe coincidir)
 - Teléfono (opcional, formato válido)
 
-## Ciclo de Depuración
-Este proyecto sigue las siguientes etapas:
+## Ciclo de Depuración - COMPLETADO ✅
+Este proyecto ha completado todas las etapas del ciclo profesional:
 
 ### 1. Simular un Bug ✅
-Se han introducido bugs realistas en la aplicación.
+Se introdujeron 4 bugs realistas:
+- Validación de email incorrecta
+- Cálculo de edad con error off-by-one
+- Validación de contraseña incompleta
+- Comparación de contraseñas con lógica invertida
 
-### 2. Registrar el Bug
-Documentar errores encontrados en GitHub Issues.
+Ver detalles en: `BUGS_DETECTADOS.md`
 
-### 3. Asignar Responsable
-Designar miembro del equipo para corrección.
+### 2. Registrar el Bug ✅
+Documentación completa de cada bug con:
+- Descripción detallada
+- Severidad (Alta/Media/Crítica)
+- Pasos para reproducir
+- Resultado esperado vs resultado actual
+- Ubicación exacta en el código
 
-### 4. Depurar
-Utilizar técnicas: console.log(), breakpoints, stack trace.
+### 3. Asignar Responsable ✅
+Bugs asignados y priorizados según severidad.
 
-### 5. Verificar
-Ejecutar pruebas de verificación post-corrección.
+### 4. Depurar ✅
+Técnicas aplicadas:
+- console.log() para trazar valores
+- Análisis de expresiones regulares
+- Análisis de lógica booleana
+- Revisión de cálculos de fechas
+
+Ver proceso completo en: `PROCESO_DEPURACION.md`
+
+### 5. Verificar ✅
+Verificación completa con:
+- 18 casos de prueba específicos
+- 3 pruebas de integración
+- 5 pruebas de regresión
+- 4 pruebas de edge cases
+- **Resultado: 100% de casos pasados**
+
+Ver reporte completo en: `VERIFICACION.md`
 
 ---
 

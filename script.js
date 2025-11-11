@@ -1,4 +1,4 @@
-// Formulario de Registro con Bugs Intencionados
+// Formulario de Registro - BUGS CORREGIDOS
 // Actividad Práctica: Ciclo Completo de Depuración
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -26,25 +26,25 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // BUG 1: Validación de email incorrecta
+        // Validar email
         if (!validateEmail(email)) {
             showError('emailError', 'Por favor ingrese un email válido');
             isValid = false;
         }
 
-        // BUG 2: Validación de edad incorrecta
+        // Validar edad (mayor de 18 años)
         if (!validateAge(birthdate)) {
             showError('birthdateError', 'Debe ser mayor de 18 años');
             isValid = false;
         }
 
-        // BUG 3: Validación de fortaleza de contraseña incorrecta
+        // Validar fortaleza de contraseña
         if (!validatePassword(password)) {
             showError('passwordError', 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
             isValid = false;
         }
 
-        // BUG 4: Comparación de contraseñas incorrecta
+        // Comparar contraseñas
         if (!comparePasswords(password, confirmPassword)) {
             showError('confirmPasswordError', 'Las contraseñas no coinciden');
             isValid = false;
@@ -66,47 +66,53 @@ function validateFullName(name) {
     return name.length >= 3;
 }
 
-// BUG 1: La expresión regular no valida correctamente el email
-// Permite emails sin punto después del @, o sin dominio apropiado
+// CORREGIDO: Validación de email mejorada
+// Ahora requiere dominio con extensión (ej: .com, .es, etc.)
 function validateEmail(email) {
-    // Esta regex es incorrecta - permite emails inválidos como "test@com" o "test@."
-    const emailRegex = /^[^\s@]+@[^\s@]+$/;
+    // Regex corregida - requiere formato: usuario@dominio.extensión
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// BUG 2: Error en el cálculo de edad (off-by-one error)
-// Permite que usuarios con exactamente 18 años pero que aún no han cumplido años este año pasen
+// CORREGIDO: Cálculo de edad preciso
+// Ahora considera año, mes y día completos para verificar edad
 function validateAge(birthdate) {
     const today = new Date();
     const birth = new Date(birthdate);
 
-    // BUG: Usa solo el año para calcular la edad, no considera mes y día
+    // Calcular edad considerando mes y día
     let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
 
-    // Esta verificación es insuficiente
-    return age > 18;
+    // Ajustar si no ha cumplido años este año
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+
+    // Ahora permite usuarios con 18 años o más
+    return age >= 18;
 }
 
-// BUG 3: Validación de contraseña incorrecta
-// No verifica correctamente todos los requisitos
+// CORREGIDO: Validación de contraseña completa
+// Ahora verifica TODOS los requisitos: mayúsculas, minúsculas y números
 function validatePassword(password) {
     if (password.length < 8) {
         return false;
     }
 
-    // BUG: Falta verificar mayúsculas
+    // Verificar todos los requisitos de fortaleza
+    const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
 
-    // No verifica mayúsculas, pero el mensaje de error dice que es necesario
-    return hasLowerCase && hasNumber;
+    // Retornar true solo si cumple todos los requisitos
+    return hasUpperCase && hasLowerCase && hasNumber;
 }
 
-// BUG 4: Comparación de contraseñas con operador incorrecto
+// CORREGIDO: Comparación de contraseñas correcta
 function comparePasswords(password, confirmPassword) {
-    // BUG: Usa == en lugar de ===, puede causar coerción de tipos
-    // Además, tiene una lógica invertida
-    return password == confirmPassword ? false : true;
+    // Usa comparación estricta (===) y lógica correcta
+    return password === confirmPassword;
 }
 
 function validatePhone(phone) {
